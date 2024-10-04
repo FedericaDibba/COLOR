@@ -120,7 +120,7 @@ def build_graph_from_color_file(fname, node_offset=-1, parent_fpath=''):
 
     nx_temp = nx.from_edgelist(edges)
 
-    nx_graph = nx.OrderedGraph()
+    nx_graph = nx.DiGraph()
     nx_graph.add_nodes_from(sorted(nx_temp.nodes()))
     nx_graph.add_edges_from(nx_temp.edges)
 
