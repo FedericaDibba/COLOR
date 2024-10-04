@@ -197,7 +197,7 @@ class GNNConv(nn.Module):
         Initialize the model object. Establishes model architecture and relevant hypers (`dropout`, `num_classes`, `agg_type`)
 
         :param g: Input graph object
-        :type g: dgl.DGLHeteroGraph
+        :type g: dgl.DGLHeteroGraph (per me é un torch vector)
         :param in_feats: Size (number of nodes) of input layer
         :type in_feats: int
         :param hidden_size: Size of hidden layer
@@ -271,7 +271,7 @@ def get_gnn(g, n_nodes, gnn_hypers, opt_params, torch_device, torch_dtype):
 
     # instantiate the GNN
     print(f'Building {model} model...')
-    if model == "GCNConv":
+    if model == "GraphConv":
         net = GNNConv(g, dim_embedding, hidden_dim, number_classes, dropout)
     elif model == "GraphSAGE":
         net = GNNSage(g, dim_embedding, hidden_dim, number_classes, dropout, agg_type)
