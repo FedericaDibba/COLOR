@@ -6,9 +6,11 @@ import random
 import numpy as np
 import os
 
-from dgl.nn.pytorch import SAGEConv
-from dgl.nn.pytorch import GraphConv
+#from dgl.nn.pytorch import SAGEConv
+#from dgl.nn.pytorch import GraphConv
+from torch_geometric.nn import SAGEConv, GCNConv
 from itertools import chain
+
 
 
 # Known chromatic numbers for specified problems (from references)
@@ -210,9 +212,9 @@ class GNNConv(nn.Module):
         self.g = g
         self.layers = nn.ModuleList()
         # input layer
-        self.layers.append(GraphConv(in_feats, hidden_size, activation=F.relu))
+        self.layers.append(GCNConv(in_feats, hidden_size, activation=F.relu))
         # output layer
-        self.layers.append(GraphConv(hidden_size, num_classes))
+        self.layers.append(GCNConv(hidden_size, num_classes))
         self.dropout = nn.Dropout(p=dropout)
 
     def forward(self, features):
