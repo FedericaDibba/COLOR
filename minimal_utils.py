@@ -183,7 +183,7 @@ class GNNSage(nn.Module):
         for i, layer in enumerate(self.layers):
             if i == 0:
                 h = F.relu(h)       #aggiunto questo per primo layer
-            else if i != 0:
+            if i != 0:
                 h = self.dropout(h)
             h = layer(self.g, h)
 
