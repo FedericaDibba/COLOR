@@ -119,6 +119,9 @@ def build_graph_from_color_file(fname, node_offset=-1, parent_fpath=''):
     edges = [parse_line(line, node_offset) for line in lines[1:] if len(line) > 0]
 
     nx_temp = nx.from_edgelist(edges)
+    
+    # Convert to edge_index(AGGIUNTO DA ME)
+    edge_index = torch.tensor(list(nx_temp.edges), dtype=torch.long).t().contiguous()
 
     nx_graph = nx.DiGraph()
     nx_graph.add_nodes_from(sorted(nx_temp.nodes()))
@@ -161,6 +164,7 @@ class GNNSage(nn.Module):
         self.layers = nn.ModuleList()
         # input layer
         self.layers.append((SAGEConv(in_feats, hidden_size, agg_type)))
+        self.activation = F.Relu()
         # output layer
         self.layers.append(SAGEConv(hidden_size, num_classes, agg_type))
         self.dropout = nn.Dropout(p=dropout)
@@ -179,7 +183,7 @@ class GNNSage(nn.Module):
         for i, layer in enumerate(self.layers):
             if i == 0:
                 h = F.relu(h)       #aggiunto questo per primo layer
-            if i != 0:
+            else if i != 0:
                 h = self.dropout(h)
             h = layer(self.g, h)
 
@@ -214,7 +218,8 @@ class GNNConv(nn.Module):
         self.g = g
         self.layers = nn.ModuleList()
         # input layer
-        self.layers.append(GCNConv(in_feats, hidden_size, activation=F.relu))
+        self.layers.append(GCNConv(in_feats, hidden_size))
+        self.activation=F.Relu()
         # output layer
         self.layers.append(GCNConv(hidden_size, num_classes))
         self.dropout = nn.Dropout(p=dropout)
@@ -232,6 +237,8 @@ class GNNConv(nn.Module):
             
         h = features
         for i, layer in enumerate(self.layers):
+            if i == 0:
+                h= self.activation(h)
             if i != 0:
                 h = self.dropout(h)
             h = layer(self.g, h)
