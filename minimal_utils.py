@@ -341,7 +341,7 @@ def run_gnn_training(nx_graph, graph_dgl, adj_mat, net, embed, optimizer,
     final decision.
 
     :param nx_graph: Graph instance to solve
-    :param graph_dgl: Graph instance to solve
+    :param graph_dgl: Graph instance to solve   (per me é un tensore torch)
     :param adj_mat: Adjacency matrix for provided graph
     :type adj_mat: torch.tensor
     :param net: GNN instance to train
