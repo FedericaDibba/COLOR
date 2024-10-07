@@ -164,7 +164,6 @@ class GNNSage(nn.Module):
         self.layers = nn.ModuleList()
         # input layer
         self.layers.append((SAGEConv(in_feats, hidden_size, agg_type)))
-        self.activation = F.relu()
         # output layer
         self.layers.append(SAGEConv(hidden_size, num_classes, agg_type))
         self.dropout = nn.Dropout(p=dropout)
@@ -182,7 +181,7 @@ class GNNSage(nn.Module):
         h = features
         for i, layer in enumerate(self.layers):
             if i == 0:
-                h = self.activation(h)       #aggiunto questo per primo layer
+                h = F.relu(h)       #aggiunto questo per primo layer
             if i != 0:
                 h = self.dropout(h)
             h = layer(self.g, h)
@@ -219,7 +218,6 @@ class GNNConv(nn.Module):
         self.layers = nn.ModuleList()
         # input layer
         self.layers.append(GCNConv(in_feats, hidden_size))
-        self.activation=F.relu()
         # output layer
         self.layers.append(GCNConv(hidden_size, num_classes))
         self.dropout = nn.Dropout(p=dropout)
@@ -238,7 +236,7 @@ class GNNConv(nn.Module):
         h = features
         for i, layer in enumerate(self.layers):
             if i == 0:
-                h = self.activation(h)
+                h = F.relu(h)
             if i != 0:
                 h = self.dropout(h)
             h = layer(self.g, h)
