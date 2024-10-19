@@ -15,4 +15,4 @@ File e contenuto:
 
 -8_12 é il primo dove coloro i link di rosso sbagliati
 
-
+-9x9 é il primo in cui mi sono accorta che se aumentano i colori devo aumentarli anche quando faccio la mappa, senno non vedo i pallini, ma solo i link rossi
