@@ -7,5 +7,5 @@ File e contenuto:
 
 -SAGE_best_model_coloring_5x5_migliore.pth ha gli iperparametri giusti per colorare, infatti colora bene
 -SAGE_best_model_coloring_7x7_ok.pth é ancora imperfetto(abbassando il lr da 0.02988 a 0.01 migliora la fluttuazione della loss)
--SAGE_best_model_coloring_7x7_migliore.pth per ora é quello con i parametri giusti
+-SAGE_best_model_coloring_7x7_giustiPARAM.pth per ora é quello con i parametri giusti
 -
